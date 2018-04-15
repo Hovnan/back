@@ -17,11 +17,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('test', function () {
-    return response()->json([
-        'user' => [
-            'first_name' => 'Renato',
-            'last_name' => 'Hysa'
-        ]
-    ]);
+Route::group(['middleware' => 'auth:api'], function () {
+    // Route::get('markers', ['as' => 'markers', 'uses' => 'MarkerController@index']);
+    // Route::post('markers/store', ['as' => 'markers.store', 'uses' => 'MarkerController@store']);
+    Route::resource('markers', 'MarkerController');
 });
+
+Route::post('register','Auth\RegisterController@create');
