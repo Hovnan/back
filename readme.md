@@ -56,3 +56,13 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+# install dependencies
+composer install
+
+# make database migration
+php artisan migrate
+
+# This command will create the encryption keys needed to generate secure access tokens(need to change config.client_secret key with database value in front\src\store\modules\app.js file). 
+php artisan passport:install
