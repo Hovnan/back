@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\UserRegistered;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -81,6 +82,11 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password'])
         ]);
+
+        //activation code
+        event(new UserRegistered($user));
+
+        //role code
         
         if ($user) {
             return response()->json(['status' => 'success', 'message' => 'Thank you ' . $data['name'] . '. You are succesfully registered' ], 201);

@@ -32,4 +32,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Marker');
     }
+
+    public function products ()
+    {
+        return $this->hasMany('App\Product');
+    }
 }
