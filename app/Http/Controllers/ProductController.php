@@ -35,9 +35,20 @@ class ProductController extends Controller
 
     public function store(Request $request) {
         $user = Auth::user();
+        $exploded = explode(',', $request->image);
+        $decoded = base64_decode($exploded[1]);
+        if(str_contains($exploded[0], 'jpeg')) {
+            $extension = 'jpg';
+        } else {
+            $extension = 'png';
+        }
 
+        $filename = str_random().'.'.$extension;
+        $path = public_path().'/images/'.$filename;
+        file_put_contents($path, $decoded);
         $user->products()->create([
             'name' => $request->name,
+            'image' => $filename,
             'price' => $request->price,
             'description' => $request->description,
         ]);
